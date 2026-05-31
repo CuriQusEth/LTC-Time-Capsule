@@ -1,3 +1,4 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Lock, Unlock, Clock } from 'lucide-react';
@@ -8,7 +9,7 @@ interface Props {
   capsule: CapsuleData;
 }
 
-export function CapsuleCard({ capsule }: Props) {
+export const CapsuleCard: React.FC<Props> = ({ capsule }) => {
   const navigate = useNavigate();
   const locked = isLocked(capsule);
 

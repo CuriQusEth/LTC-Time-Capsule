@@ -40,7 +40,7 @@ export function CapsuleDetails() {
     if (!capsule || !isConnected) return;
     try {
       setTxStatus('pending');
-      const tx = await withRetry(() => contract.unlockCapsule(capsule.id));
+      const tx = await withRetry<any>(() => contract.unlockCapsule(capsule.id));
       setTxHash(tx.hash);
       await tx.wait();
       setTxStatus('completed');

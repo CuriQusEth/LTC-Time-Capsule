@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useWeb3 } from '../lib/Web3Provider';
 import { withRetry } from '../lib/rpcRetry';
@@ -27,7 +27,7 @@ export function CreateCapsule() {
       const contentHash = 'ipfs_' + Date.now().toString(36) + '_' + title.slice(0, 8).replace(/\s/g, '');
       const unlockTimestamp = BigInt(Math.floor(new Date(unlockDate).getTime() / 1000));
 
-      const tx = await withRetry(() => 
+      const tx = await withRetry<any>(() => 
         contract.createCapsule(fullTitle, contentHash, unlockTimestamp, { value: BigInt('1000000000000000') })
       );
       
@@ -181,7 +181,7 @@ export function CreateCapsule() {
               </div>
             )}
 
-            {error && (
+            {status === 'error' && (
               <div className="p-4 bg-red-500/10 border border-red-500/20 rounded text-red-500 text-sm mt-4">
                 {errMsg}
               </div>
