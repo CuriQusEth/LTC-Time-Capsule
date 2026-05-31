@@ -25,8 +25,30 @@ const LITVM_CHAIN_ID_HEX = '0x1159';
 const LITVM_CHAIN_ID_INT = 4441;
 
 let _rpcId = 1;
+let _rpcQueue: (() => void)[] = [];
+let _rpcProcessing = false;
+
+async function processRpcQueue() {
+  if (_rpcProcessing || _rpcQueue.length === 0) return;
+  _rpcProcessing = true;
+  while (_rpcQueue.length > 0) {
+    const task = _rpcQueue.shift();
+    if (task) {
+      task();
+      // Wait 350ms between requests to avoid rate limits
+      await new Promise(resolve => setTimeout(resolve, 500));
+    }
+  }
+  _rpcProcessing = false;
+}
 
 async function rpcFetch(method: string, params: unknown[] = []): Promise<unknown> {
+  // Throttle request using a simple queue
+  await new Promise<void>((resolve) => {
+    _rpcQueue.push(resolve);
+    processRpcQueue();
+  });
+
   const res = await fetch(RPC_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

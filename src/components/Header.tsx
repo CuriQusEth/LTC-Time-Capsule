@@ -54,7 +54,7 @@ export function Header() {
               ) : (
                 <div className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-lg px-4 py-2">
                   <span className="text-[11px] tracking-widest font-bold text-[#c4a67e]">
-                    {balance ? parseFloat(balance).toFixed(4) : '0'} LTC
+                    {balance ? parseFloat(balance).toFixed(4) : '0'} zkLTC
                   </span>
                   <div className="w-[1px] h-4 bg-white/10" />
                   <div className="flex items-center gap-2">
@@ -97,7 +97,7 @@ export function Header() {
               ) : (
                 <div className="flex flex-col gap-2">
                   <span className="text-xs uppercase tracking-widest text-[#c4a67e] font-mono">Connected: {account}</span>
-                  <span className="text-xs uppercase tracking-widest text-[#c4a67e]">{balance ? parseFloat(balance).toFixed(4) : '0'} LTC</span>
+                  <span className="text-xs uppercase tracking-widest text-[#c4a67e]">{balance ? parseFloat(balance).toFixed(4) : '0'} zkLTC</span>
                 </div>
               )}
             </div>

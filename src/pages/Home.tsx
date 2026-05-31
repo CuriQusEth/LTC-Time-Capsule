@@ -29,14 +29,12 @@ export function Home() {
         
         const validRecent = [...allRecent.filter(c => c.exists)].reverse();
         
-        // Approximate stats based on total
-        let unlockedCount = 0;
-        let lockedCount = 0;
-        if (totalNum > 0 && totalNum <= 100) {
-            const allStr = await withRetry(() => contract.getAllCapsules(0, totalNum)) as CapsuleData[];
-            unlockedCount = allStr.filter(c => c.isUnlocked).length;
-            lockedCount = totalNum - unlockedCount;
-        }
+        // Approximate stats based on up to 100 recent capsules
+        const limit = Math.min(totalNum, 100);
+        const offset = Math.max(0, totalNum - 100);
+        const allStr = await withRetry(() => contract.getAllCapsules(offset, limit)) as CapsuleData[];
+        const unlockedCount = allStr.filter(c => c.isUnlocked).length;
+        const lockedCount = totalNum - unlockedCount;
 
         setRecent(validRecent);
         setStats({ total: totalNum, locked: lockedCount || totalNum, unlocked: unlockedCount });

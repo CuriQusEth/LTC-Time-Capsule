@@ -164,7 +164,7 @@ export function CreateCapsule() {
             <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
                 <div className="text-[9px] uppercase tracking-[0.2em] text-white/30 mb-1 font-bold">Creation Fee</div>
-                <div className="font-mono text-[#c4a67e] font-bold tracking-widest">0.001 LTC</div>
+                <div className="font-mono text-[#c4a67e] font-bold tracking-widest">0.001 zkLTC</div>
               </div>
               <button 
                 type="submit"

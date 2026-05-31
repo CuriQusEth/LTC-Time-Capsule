@@ -19,11 +19,14 @@ export function ExploreCapsules() {
     const load = async () => {
       try {
         const total = await withRetry(() => contract.getTotalCapsules());
-        if (Number(total) === 0) {
+        const totalNum = Number(total);
+        if (totalNum === 0) {
           setLoading(false);
           return;
         }
-        const all = await withRetry(() => contract.getAllCapsules(0, Number(total))) as CapsuleData[];
+        const limit = Math.min(totalNum, 100);
+        const offset = Math.max(0, totalNum - 100);
+        const all = await withRetry(() => contract.getAllCapsules(offset, limit)) as CapsuleData[];
         const valid = [...all.filter(c => c.exists)].reverse();
         setCapsules(valid);
         setFiltered(valid);
