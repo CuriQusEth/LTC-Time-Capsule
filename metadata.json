@@ -1,0 +1,6 @@
+{
+  "name": "LTC Time Capsule",
+  "description": "Create immutable, time-locked digital capsules on the LitVM LiteForge blockchain.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
